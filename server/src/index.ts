@@ -6,7 +6,15 @@ import { config } from "./config.js";
 import { createPaymentMiddleware } from "./middleware/payment.js";
 import storage from "./routes/storage.js";
 import { authStore } from "./auth-store.js";
+import { setGlobalDispatcher, ProxyAgent } from "undici";
 
+// for proxy support
+const proxy =
+  process.env.HTTPS_PROXY || process.env.HTTP_PROXY;
+
+if (proxy) {
+  setGlobalDispatcher(new ProxyAgent(proxy));
+}
 const app = new Hono();
 
 async function main() {
