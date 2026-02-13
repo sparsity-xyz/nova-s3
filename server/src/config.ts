@@ -7,10 +7,7 @@ function isTrue(val: string | undefined): boolean {
 
 function requireEnv(name: string): string {
     const value = process.env[name];
-    if (!value) {
-        throw new Error(`Missing required environment variable: ${name}`);
-    }
-    return value;
+    return value ?? "";
 }
 
 function optionalEnv(name: string, defaultValue: string): string {
@@ -25,9 +22,9 @@ export const config = {
 
     // x402 Payment
     payment: {
-        facilitatorUrl: requireEnv("FACILITATOR_URL"),
-        receivingAddress: requireEnv("RECEIVING_ADDRESS") as `0x${string}`,
-        paymentTokenAddress: requireEnv("PAYMENT_TOKEN_ADDRESS") as `0x${string}`,
+        facilitatorUrl: optionalEnv("FACILITATOR_URL", "https://facilitator.payai.network"),
+        receivingAddress: optionalEnv("RECEIVING_ADDRESS", "0x855D4db013dE51a0cf7528d0C294a79b162eF1aD") as `0x${string}`,
+        paymentTokenAddress: optionalEnv("PAYMENT_TOKEN_ADDRESS", "0x2e08028E3C4c2356572E096d8EF835cD5C6030bD") as `0x${string}`,
         paymentTokenName: optionalEnv("PAYMENT_TOKEN_NAME", "Bridged USDC (SKALE Bridge)"),
         networkChainId: optionalEnv("NETWORK_CHAIN_ID", "324705682"),
         get network(): Network {
@@ -42,7 +39,7 @@ export const config = {
 
     // File constraints
     file: {
-        maxSizeBytes: Number(optionalEnv("MAX_FILE_SIZE", String(1000 * 1000 * 1000))), // 1GB in bytes
+        maxSizeBytes: Number(optionalEnv("MAX_FILE_SIZE", "1000000000")), // 1GB in bytes
         expirationDays: Number(optionalEnv("FILE_EXPIRATION_DAYS", "10")),
     },
 
