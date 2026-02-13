@@ -1,0 +1,7 @@
+.idea
+.venv
+.env
+node_modules
+app.json
+dist
+*.db
