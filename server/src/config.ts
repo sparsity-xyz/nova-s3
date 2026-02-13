@@ -23,14 +23,6 @@ export const config = {
     // Server
     port: Number(optionalEnv("PORT", "3000")),
 
-    // AWS S3
-    aws: {
-        accessKeyId: requireEnv("AWS_ACCESS_KEY_ID"),
-        secretAccessKey: requireEnv("AWS_SECRET_ACCESS_KEY"),
-        region: optionalEnv("AWS_REGION", "us-east-1"),
-        bucketName: requireEnv("S3_BUCKET_NAME"),
-    },
-
     // x402 Payment
     payment: {
         facilitatorUrl: requireEnv("FACILITATOR_URL"),
